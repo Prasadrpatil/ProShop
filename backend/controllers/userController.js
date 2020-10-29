@@ -111,4 +111,26 @@ const getUsers = asycHandler(async (req, res) => {
   res.json(users)
 })
 
-export { authUser, getUserProfile, registerUser, updateUserProfile, getUsers }
+// @des     Delete a User
+// @route   DELETE /api/users/:id
+// @access  Private/Admin
+const deleteUser = asycHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
+
+  if (user) {
+    await user.remove()
+    res.json({ message: 'User Removed Successfully' })
+  } else {
+    res.status(404)
+    throw new Error('User Not Found')
+  }
+})
+
+export {
+  authUser,
+  getUserProfile,
+  registerUser,
+  updateUserProfile,
+  getUsers,
+  deleteUser,
+}
