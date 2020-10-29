@@ -72,7 +72,7 @@ const getUserProfile = asycHandler(async (req, res) => {
     })
   } else {
     res.status(401)
-    throw new Error('Invalid Email or Password')
+    throw new Error('User not found')
   }
 })
 
@@ -96,10 +96,11 @@ const updateUserProfile = asycHandler(async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
     })
   } else {
     res.status(401)
-    throw new Error('Invalid Email or Password')
+    throw new Error('User Not Found')
   }
 })
 
@@ -126,6 +127,45 @@ const deleteUser = asycHandler(async (req, res) => {
   }
 })
 
+// @des     Get User By id
+// @route   GET /api/users/:id
+// @access  Private/Admin
+const getUserById = asycHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password')
+  if (user) {
+    res.json(user)
+  } else {
+    res.status(404)
+    throw new Error('User Not Found')
+  }
+})
+
+// @des     Update User
+// @route   PUT /api/users/:id
+// @access  Private/Admin
+const updateUser = asycHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
+
+  if (user) {
+    user.name = req.body.name || user.name
+    user.email = req.body.email || user.email
+    if (req.body.isAdmin || req.body.isAdmin === false) {
+      user.isAdmin = req.body.isAdmin
+    }
+    const updatedUser = await user.save()
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    })
+  } else {
+    res.status(401)
+    throw new Error('User Not Found')
+  }
+})
+
 export {
   authUser,
   getUserProfile,
@@ -133,4 +173,6 @@ export {
   updateUserProfile,
   getUsers,
   deleteUser,
+  getUserById,
+  updateUser,
 }
