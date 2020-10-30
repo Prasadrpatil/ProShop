@@ -47,7 +47,7 @@ const UserEditScreen = ({ match, history }) => {
     } else {
       history.push('/login')
     }
-  }, [dispatch, history, userId, user, successUpdate])
+  }, [dispatch, history, userId, user, userInfo, successUpdate])
 
   const submitHandler = (e) => {
     e.preventDefault()

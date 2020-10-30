@@ -42,7 +42,7 @@ const ProductEditScreen = ({ match, history }) => {
     } else {
       history.push('/login')
     }
-  }, [dispatch, history, productId, product])
+  }, [dispatch, history, productId, product, userInfo])
 
   const submitHandler = (e) => {
     e.preventDefault()
