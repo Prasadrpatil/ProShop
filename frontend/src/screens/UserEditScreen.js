@@ -17,6 +17,9 @@ const UserEditScreen = ({ match, history }) => {
 
   const dispatch = useDispatch()
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, error, user } = userDetails
 
@@ -28,17 +31,21 @@ const UserEditScreen = ({ match, history }) => {
   } = userUpdate
 
   useEffect(() => {
-    if (successUpdate) {
-      dispatch({ type: USER_UPDATE_RESET })
-      history.push('/admin/userlist')
-    } else {
-      if (!user.name || user._id !== userId) {
-        dispatch(getUserDetails(userId))
+    if (userInfo && userInfo.isAdmin) {
+      if (successUpdate) {
+        dispatch({ type: USER_UPDATE_RESET })
+        history.push('/admin/userlist')
       } else {
-        setName(user.name)
-        setEmail(user.email)
-        setIsAdmin(user.isAdmin)
+        if (!user.name || user._id !== userId) {
+          dispatch(getUserDetails(userId))
+        } else {
+          setName(user.name)
+          setEmail(user.email)
+          setIsAdmin(user.isAdmin)
+        }
       }
+    } else {
+      history.push('/login')
     }
   }, [dispatch, history, userId, user, successUpdate])
 
@@ -91,7 +98,7 @@ const UserEditScreen = ({ match, history }) => {
               ></Form.Check>
             </Form.Group>
 
-            <Button type='submit' variant='primary'>
+            <Button type='submit' className='btn-block' variant='primary'>
               Update
             </Button>
           </Form>
