@@ -20,11 +20,15 @@ import {
 } from '../constants/productConstants'
 import axios from 'axios'
 
-export const listProducts = (keyword = '') => async (disaptch) => {
+export const listProducts = (keyword = '', pageNumber = '') => async (
+  disaptch
+) => {
   try {
     disaptch({ type: PRODUCT_LIST_REQUEST })
 
-    const { data } = await axios.get(`/api/products?keyword=${keyword}`)
+    const { data } = await axios.get(
+      `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+    )
 
     disaptch({
       type: PRODUCT_LIST_SUCCESS,
