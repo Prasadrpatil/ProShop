@@ -31,14 +31,21 @@ const PlaceOrderScreen = ({ history }) => {
   const orderCreate = useSelector((state) => state.orderCreate)
   const { order, success, error } = orderCreate
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`)
     }
+
     // eslint-disable-next-line
   }, [history, success])
 
   const placeOrderHandler = () => {
+    if (!userInfo) {
+      history.push('/login?redirect=placeorder')
+    }
     dispatch(
       createOrder({
         orderItems: cart.cartItems,
@@ -54,7 +61,7 @@ const PlaceOrderScreen = ({ history }) => {
 
   return (
     <>
-    <Meta title='ProShop: Place Order' />
+      <Meta title='ProShop: Place Order' />
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
         <Col md={8}>
