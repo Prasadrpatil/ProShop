@@ -3,6 +3,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Meta from '../components/Meta'
 import { useDispatch, useSelector } from 'react-redux'
 import { listOrders } from '../actions/orderActions'
 
@@ -25,6 +26,7 @@ const OrderListScreen = ({ history }) => {
 
   return (
     <>
+    <Meta title='Admin: Orders List' />
       <h1>Orders</h1>
       {loading ? (
         <Loader />
