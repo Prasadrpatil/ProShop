@@ -50,7 +50,7 @@ const OrderScreen = ({ match, history }) => {
         document.body.appendChild(script)
       }
 
-      if (!order || successPay || successDeliver) {
+      if (!order || successPay || successDeliver || order._id !== orderId) {
         dispatch({ type: ORDER_PAY_RESET })
         dispatch({ type: ORDER_DELIVER_RESET })
         dispatch(getOrderDetails(orderId))
@@ -65,10 +65,6 @@ const OrderScreen = ({ match, history }) => {
       history.push('/login')
     }
   }, [dispatch, successPay, successDeliver, userInfo, history, order, orderId])
-
-  useEffect(() => {
-    dispatch(getOrderDetails(orderId))
-  }, [dispatch, orderId])
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult))
