@@ -66,6 +66,10 @@ const OrderScreen = ({ match, history }) => {
     }
   }, [dispatch, successPay, successDeliver, userInfo, history, order, orderId])
 
+  useEffect(() => {
+    dispatch(getOrderDetails(orderId))
+  }, [dispatch, orderId])
+
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult))
   }
@@ -80,7 +84,7 @@ const OrderScreen = ({ match, history }) => {
     <Message variant='danger'>{error}</Message>
   ) : (
     <>
-    <Meta title='Proshop: Order Details'/>
+      <Meta title='Proshop: Order Details' />
       <h1>Order {orderId}</h1>
       <Row>
         <Col md={8}>
@@ -187,7 +191,7 @@ const OrderScreen = ({ match, history }) => {
                   <Col>${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {!order.isPaid && (
+              {userInfo?._id === order.user._id && !order.isPaid && (
                 <ListGroup.Item>
                   {loadingPay && <Loader />}
                   {!sdkReady ? (
