@@ -30,8 +30,16 @@ const RegisterScreen = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    if (password !== confirmPassword) {
-      setMessage('Passwords do not Match')
+
+    // eslint-disable-next-line
+    const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
+
+    if (password.length < 6) {
+      setMessage('Password Should AtLeast of 6 characters...')
+    } else if (!format.test(password)) {
+      setMessage('Please Use AtLeast 1 Special Character in password...')
+    } else if (password !== confirmPassword) {
+      setMessage('Passwords do not Match...')
     } else {
       dispatch(register(name, email, password))
     }
