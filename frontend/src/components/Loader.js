@@ -3,21 +3,15 @@ import { Spinner } from 'react-bootstrap'
 
 const Loader = () => {
   return (
-    <div>
-      <Spinner
-        animation='border'
-        role='status'
-        style={{
-          width: '60px',
-          height: '60px',
-          margin: 'auto',
-          display: 'block',
-          color: '#2ae149',
-        }}
-      >
-        <span className='sr-only'>Loading...</span>
-      </Spinner>
-    </div>
+    <div
+      style={{
+        width: '60px',
+        height: '60px',
+        margin: 'auto',
+        display: 'block',
+      }}
+      class='lds-dual-ring'
+    ></div>
   )
 }
 
