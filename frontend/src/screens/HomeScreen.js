@@ -54,6 +54,7 @@ const HomeScreen = ({ match }) => {
               </Col>
             ))}
           </Row>
+          <br/>
           <Paginate
             pages={pages}
             page={page}
