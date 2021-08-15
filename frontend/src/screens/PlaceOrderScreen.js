@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
 import Meta from '../components/Meta'
-import { createOrder } from '../actions/orderActions'
+import { createOrder, listMyOrders } from '../actions/orderActions'
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -36,6 +36,7 @@ const PlaceOrderScreen = ({ history }) => {
 
   useEffect(() => {
     if (success) {
+      dispatch(listMyOrders())
       history.push(`/order/${order._id}`)
     }
 
