@@ -22,7 +22,7 @@ Sample User Logins
 admin@example.com (Admin)
 admin@123
 
-john@example.com (Customer)
+jhon@example.com (Customer)
 jhon@123
 
 jane@example.com (Customer)
