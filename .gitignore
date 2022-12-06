@@ -25,3 +25,9 @@ yarn-debug.log*
 yarn-error.log*
 
 debug.log
+
+PORT 5000
+PAYPAL_CLIENT_ID AcgmwmyE9PaId6NpHV9-VciU4cCF5zIZ8ht3J3q6qo0rk7_wpEWP0wNDXfEnH9QMfPAcduN41WWeXp9s
+NODE_ENV production
+MONGO_URI mongodb+srv://Prasad25:Prasad25.10@cluster0.4y97t.mongodb.net/ProShop?retryWrites=true&w=majority
+JWT_SECRET jhfhjfg12fgh4f4fhjfhf687
